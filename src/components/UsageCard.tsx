@@ -21,6 +21,13 @@ const UsageCard = ({ usage, isSelected, canAfford, onToggle, onClick }: UsageCar
         {usage.price} AI₿
       </div>
 
+      {/* Caractéristique en bas à gauche */}
+      {usage.characteristic && (
+        <div className="absolute -bottom-3 -left-3 bg-neo-purple text-neo-white px-3 py-1 border-4 border-neo-black font-black text-sm uppercase">
+          {usage.characteristic}
+        </div>
+      )}
+
       {/* Zone cliquable pour voir les détails */}
       <div
         onClick={onClick}

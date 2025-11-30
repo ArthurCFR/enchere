@@ -103,6 +103,23 @@ const UsageEditor = ({ usage, onSave, onClose }: UsageEditorProps) => {
             </div>
           )}
 
+          {/* Caractéristique */}
+          <div className="mb-6">
+            <label className="block font-bold text-lg mb-2">
+              Caractéristique (optionnel)
+            </label>
+            <select
+              value={formData.characteristic || ''}
+              onChange={(e) => setFormData({ ...formData, characteristic: e.target.value as 'cabinet' | 'offres' | 'mission' | undefined })}
+              className="input-neo"
+            >
+              <option value="">Aucune</option>
+              <option value="cabinet">Cabinet</option>
+              <option value="offres">Offres</option>
+              <option value="mission">Mission</option>
+            </select>
+          </div>
+
           {/* Gains */}
           <div className="mb-6">
             <label className="block font-bold text-lg mb-2 flex items-center gap-2">

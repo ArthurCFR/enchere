@@ -60,6 +60,7 @@ const Admin = () => {
           .update({
             description: usage.description,
             category: usage.category,
+            characteristic: usage.characteristic || null,
             price: getCategoryPrice(usage.category),
             gains: usage.gains || '',
             tools: usage.tools || '',
@@ -75,6 +76,7 @@ const Admin = () => {
           .insert({
             description: usage.description,
             category: usage.category,
+            characteristic: usage.characteristic || null,
             group_number: usage.group_number,
             price: getCategoryPrice(usage.category),
             gains: usage.gains || '',

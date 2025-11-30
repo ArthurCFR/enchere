@@ -15,6 +15,7 @@ export interface Usage {
   id?: string;
   description: string;
   category: 'quick-win' | 'structurant' | 'moonshot';
+  characteristic?: 'cabinet' | 'offres' | 'mission';
   group_number: 1 | 2 | 3;
   price: number;
   gains?: string;
