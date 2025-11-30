@@ -1,0 +1,104 @@
+{
+  "groupe1_consultants_junior": [
+    {
+      "description": "Automatiser la rédaction des comptes-rendus de réunion",
+      "category": "quick-win"
+    },
+    {
+      "description": "Générer des présentations PowerPoint à partir de notes",
+      "category": "quick-win"
+    },
+    {
+      "description": "Corriger automatiquement l'orthographe et la grammaire",
+      "category": "quick-win"
+    },
+    {
+      "description": "Assistant IA pour la recherche documentaire",
+      "category": "structurant"
+    },
+    {
+      "description": "Outil de prise de notes intelligentes avec synthèse",
+      "category": "structurant"
+    },
+    {
+      "description": "Générateur de templates de documents personnalisés",
+      "category": "structurant"
+    },
+    {
+      "description": "Plateforme IA d'apprentissage adaptatif personnalisé",
+      "category": "moonshot"
+    },
+    {
+      "description": "Coach virtuel IA pour le développement de compétences",
+      "category": "moonshot"
+    }
+  ],
+  "groupe2_consultants_senior": [
+    {
+      "description": "Résumé automatique de documents longs",
+      "category": "quick-win"
+    },
+    {
+      "description": "Extraction automatique des points clés de réunions",
+      "category": "quick-win"
+    },
+    {
+      "description": "Génération de rapports d'analyse à partir de données",
+      "category": "quick-win"
+    },
+    {
+      "description": "Chatbot intelligent pour le support client",
+      "category": "structurant"
+    },
+    {
+      "description": "Outil d'analyse prédictive pour la gestion de projet",
+      "category": "structurant"
+    },
+    {
+      "description": "Assistant IA pour l'optimisation des processus",
+      "category": "structurant"
+    },
+    {
+      "description": "Plateforme IA de détection de risques en temps réel",
+      "category": "moonshot"
+    },
+    {
+      "description": "Système IA de recommandation stratégique automatisé",
+      "category": "moonshot"
+    }
+  ],
+  "groupe3_managers": [
+    {
+      "description": "Dashboard IA de suivi des KPIs en temps réel",
+      "category": "quick-win"
+    },
+    {
+      "description": "Alertes intelligentes sur les écarts de performance",
+      "category": "quick-win"
+    },
+    {
+      "description": "Planificateur automatique de réunions optimisé",
+      "category": "quick-win"
+    },
+    {
+      "description": "Outil IA d'aide à la décision stratégique",
+      "category": "structurant"
+    },
+    {
+      "description": "Système de gestion des talents basé sur l'IA",
+      "category": "structurant"
+    },
+    {
+      "description": "Plateforme d'analyse prédictive du turnover",
+      "category": "structurant"
+    },
+    {
+      "description": "IA générative pour la stratégie d'entreprise",
+      "category": "moonshot"
+    },
+    {
+      "description": "Jumeau numérique IA de l'organisation complète",
+      "category": "moonshot"
+    }
+  ]
+}

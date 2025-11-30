@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    background-color: #FFEB3B;
+    color: #000000;
+    overflow-x: hidden;
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  /* Boutons Neo-Brutalistes */
+  .btn-neo {
+    @apply px-6 py-3 font-bold text-lg border-4 border-neo-black
+           shadow-brutal transition-all duration-200 uppercase tracking-wide
+           hover:translate-x-1 hover:translate-y-1 hover:shadow-brutal-sm
+           active:translate-x-2 active:translate-y-2 active:shadow-none;
+  }
+
+  .btn-neo-primary {
+    @apply btn-neo bg-neo-pink text-neo-black;
+  }
+
+  .btn-neo-secondary {
+    @apply btn-neo bg-neo-blue text-neo-black;
+  }
+
+  .btn-neo-success {
+    @apply btn-neo bg-neo-green text-neo-black;
+  }
+
+  .btn-neo-white {
+    @apply btn-neo bg-neo-white text-neo-black;
+  }
+
+  /* Cartes Neo-Brutalistes */
+  .card-neo {
+    @apply border-4 border-neo-black shadow-brutal p-6 transition-all duration-200;
+  }
+
+  .card-neo-hover {
+    @apply card-neo hover:translate-x-1 hover:translate-y-1 hover:shadow-brutal-sm cursor-pointer;
+  }
+
+  /* Input Neo-Brutalistes */
+  .input-neo {
+    @apply w-full px-4 py-3 border-4 border-neo-black font-bold text-lg
+           focus:outline-none focus:ring-4 focus:ring-neo-purple
+           placeholder:text-gray-500;
+  }
+
+  .textarea-neo {
+    @apply input-neo min-h-[120px] resize-none;
+  }
+
+  /* Badge/Tag Neo-Brutaliste */
+  .badge-neo {
+    @apply inline-block px-3 py-1 text-sm font-bold border-2 border-neo-black;
+  }
+
+  /* Conteneur principal */
+  .container-neo {
+    @apply max-w-7xl mx-auto px-4 py-8;
+  }
+
+  /* Titre Neo-Brutaliste */
+  .title-neo {
+    @apply text-4xl md:text-6xl font-black uppercase tracking-tight
+           border-b-8 border-neo-black inline-block pb-2 mb-8;
+  }
+
+  .subtitle-neo {
+    @apply text-2xl md:text-3xl font-bold uppercase tracking-wide mb-4;
+  }
+}
+
+/* Animations personnalisées */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Scrollbar personnalisée */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FFEB3B;
+  border: 2px solid #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #FF6EC7;
+  border: 2px solid #000000;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00D9FF;
+}
