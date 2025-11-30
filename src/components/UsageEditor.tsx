@@ -103,6 +103,45 @@ const UsageEditor = ({ usage, onSave, onClose }: UsageEditorProps) => {
             </div>
           )}
 
+          {/* Gains */}
+          <div className="mb-6">
+            <label className="block font-bold text-lg mb-2 flex items-center gap-2">
+              <span>📈</span> Gains (optionnel)
+            </label>
+            <textarea
+              value={formData.gains || ''}
+              onChange={(e) => setFormData({ ...formData, gains: e.target.value })}
+              className="textarea-neo"
+              placeholder="Décrivez les gains attendus..."
+            />
+          </div>
+
+          {/* Outils possibles */}
+          <div className="mb-6">
+            <label className="block font-bold text-lg mb-2 flex items-center gap-2">
+              <span>🛠️</span> Outils possibles (optionnel)
+            </label>
+            <textarea
+              value={formData.tools || ''}
+              onChange={(e) => setFormData({ ...formData, tools: e.target.value })}
+              className="textarea-neo"
+              placeholder="Listez les outils recommandés..."
+            />
+          </div>
+
+          {/* Risques potentiels */}
+          <div className="mb-6">
+            <label className="block font-bold text-lg mb-2 flex items-center gap-2">
+              <span>⚠️</span> Risques potentiels (optionnel)
+            </label>
+            <textarea
+              value={formData.risks || ''}
+              onChange={(e) => setFormData({ ...formData, risks: e.target.value })}
+              className="textarea-neo"
+              placeholder="Identifiez les risques..."
+            />
+          </div>
+
           {/* Boutons */}
           <div className="flex gap-4 justify-end">
             <button

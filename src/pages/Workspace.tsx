@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { supabase, type Usage, getGroupInstruction, getCategoryColor } from '../lib/supabase';
 import UsageCard from '../components/UsageCard';
 import ConfirmModal from '../components/ConfirmModal';
+import UsageDetailModal from '../components/UsageDetailModal';
+import SuccessMessage from '../components/SuccessMessage';
 
 const Workspace = () => {
   const location = useLocation();
@@ -14,6 +16,8 @@ const Workspace = () => {
   const [budget, setBudget] = useState(200);
   const [loading, setLoading] = useState(true);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [selectedUsageDetail, setSelectedUsageDetail] = useState<Usage | null>(null);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   useEffect(() => {
     if (!groupNumber) {
@@ -110,6 +114,10 @@ const Workspace = () => {
         .eq('group_number', groupNumber);
 
       if (error) throw error;
+
+      // Afficher le message de succès
+      setShowSuccessMessage(true);
+      setTimeout(() => setShowSuccessMessage(false), 3000);
     } catch (error) {
       console.error('Erreur lors de la validation:', error);
     }
@@ -212,6 +220,7 @@ const Workspace = () => {
                 isSelected={selectedUsageIds.includes(usage.id!)}
                 canAfford={budget >= usage.price}
                 onToggle={() => toggleUsage(usage)}
+                onClick={() => setSelectedUsageDetail(usage)}
               />
             ))}
           </div>
@@ -233,6 +242,7 @@ const Workspace = () => {
                 isSelected={selectedUsageIds.includes(usage.id!)}
                 canAfford={budget >= usage.price}
                 onToggle={() => toggleUsage(usage)}
+                onClick={() => setSelectedUsageDetail(usage)}
               />
             ))}
           </div>
@@ -254,6 +264,7 @@ const Workspace = () => {
                 isSelected={selectedUsageIds.includes(usage.id!)}
                 canAfford={budget >= usage.price}
                 onToggle={() => toggleUsage(usage)}
+                onClick={() => setSelectedUsageDetail(usage)}
               />
             ))}
           </div>
@@ -270,6 +281,19 @@ const Workspace = () => {
         message={`Vous êtes sur le point de valider votre stack avec ${selectedUsages.length} usage(s) pour un total de ${totalCost} AIBitcoins. Cette action est définitive !`}
         onConfirm={validateStack}
         onClose={() => setShowConfirmModal(false)}
+      />
+
+      {/* Modal de détail d'usage */}
+      <UsageDetailModal
+        usage={selectedUsageDetail}
+        isOpen={!!selectedUsageDetail}
+        onClose={() => setSelectedUsageDetail(null)}
+      />
+
+      {/* Message de succès */}
+      <SuccessMessage
+        message="Stack validée !"
+        isVisible={showSuccessMessage}
       />
     </div>
   );

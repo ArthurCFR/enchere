@@ -17,6 +17,9 @@ export interface Usage {
   category: 'quick-win' | 'structurant' | 'moonshot';
   group_number: 1 | 2 | 3;
   price: number;
+  gains?: string;
+  tools?: string;
+  risks?: string;
   created_at?: string;
 }
 

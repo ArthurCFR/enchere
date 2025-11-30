@@ -61,6 +61,9 @@ const Admin = () => {
             description: usage.description,
             category: usage.category,
             price: getCategoryPrice(usage.category),
+            gains: usage.gains || '',
+            tools: usage.tools || '',
+            risks: usage.risks || '',
           })
           .eq('id', usage.id);
 
@@ -74,6 +77,9 @@ const Admin = () => {
             category: usage.category,
             group_number: usage.group_number,
             price: getCategoryPrice(usage.category),
+            gains: usage.gains || '',
+            tools: usage.tools || '',
+            risks: usage.risks || '',
           });
 
         if (error) throw error;
