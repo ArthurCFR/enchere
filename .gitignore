@@ -23,7 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
-# Environment variables
+# Environment variables (keep .env.production for Vercel)
 .env
 .env.local
-.env.production
