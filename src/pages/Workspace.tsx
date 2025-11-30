@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { supabase, type Usage, getGroupInstruction } from '../lib/supabase';
+import { supabase, type Usage, getGroupInstruction, getCategoryColor } from '../lib/supabase';
 import UsageCard from '../components/UsageCard';
-import StackBanner from '../components/StackBanner';
+import ConfirmModal from '../components/ConfirmModal';
 
 const Workspace = () => {
   const location = useLocation();
@@ -13,6 +13,7 @@ const Workspace = () => {
   const [selectedUsageIds, setSelectedUsageIds] = useState<string[]>([]);
   const [budget, setBudget] = useState(200);
   const [loading, setLoading] = useState(true);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   useEffect(() => {
     if (!groupNumber) {
@@ -62,7 +63,6 @@ const Workspace = () => {
     const isSelected = selectedUsageIds.includes(usage.id!);
 
     if (isSelected) {
-      // Retirer l'usage
       const newSelectedIds = selectedUsageIds.filter(id => id !== usage.id);
       const newBudget = budget + usage.price;
 
@@ -71,7 +71,6 @@ const Workspace = () => {
 
       await updateStack(newSelectedIds, 200 - newBudget);
     } else {
-      // Ajouter l'usage si le budget le permet
       if (budget >= usage.price) {
         const newSelectedIds = [...selectedUsageIds, usage.id!];
         const newBudget = budget - usage.price;
@@ -111,11 +110,8 @@ const Workspace = () => {
         .eq('group_number', groupNumber);
 
       if (error) throw error;
-
-      alert('Stack validée avec succès ! 🎉');
     } catch (error) {
       console.error('Erreur lors de la validation:', error);
-      alert('Erreur lors de la validation de la stack');
     }
   };
 
@@ -125,6 +121,10 @@ const Workspace = () => {
       'structurant': usages.filter(u => u.category === 'structurant'),
       'moonshot': usages.filter(u => u.category === 'moonshot')
     };
+  };
+
+  const removeUsage = (usage: Usage) => {
+    toggleUsage(usage);
   };
 
   if (!groupNumber) return null;
@@ -138,33 +138,64 @@ const Workspace = () => {
 
   const categorized = categorizeUsages();
   const selectedUsages = usages.filter(u => selectedUsageIds.includes(u.id!));
+  const totalCost = selectedUsages.reduce((sum, usage) => sum + usage.price, 0);
 
   return (
-    <div className="min-h-screen bg-neo-yellow pb-32">
-      {/* Header avec consigne et budget */}
-      <div className="bg-neo-purple border-b-8 border-neo-black py-6 sticky top-0 z-40">
-        <div className="container-neo">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <h2 className="text-2xl md:text-3xl font-black uppercase text-center md:text-left">
+    <div className="min-h-screen bg-neo-yellow">
+      {/* Header compact avec consigne, budget et usages sélectionnés */}
+      <div className="bg-neo-purple border-b-8 border-neo-black sticky top-0 z-40">
+        <div className="container-neo py-4">
+          {/* Ligne 1: Consigne et Budget */}
+          <div className="flex justify-between items-center mb-3">
+            <h2 className="text-lg md:text-xl font-black uppercase">
               {getGroupInstruction(groupNumber)}
             </h2>
-            <div className="card-neo bg-neo-white px-6 py-3 flex items-center gap-3">
-              <span className="text-3xl">💰</span>
+            <div className="card-neo bg-neo-white px-4 py-2 flex items-center gap-2">
+              <span className="text-2xl">💰</span>
               <div className="text-right">
-                <div className="text-sm font-bold opacity-70">Budget restant</div>
-                <div className="text-3xl font-black">{budget} AI₿</div>
+                <div className="text-xs font-bold opacity-70">Budget</div>
+                <div className="text-2xl font-black">{budget} AI₿</div>
               </div>
             </div>
           </div>
+
+          {/* Ligne 2: Usages sélectionnés */}
+          {selectedUsages.length > 0 && (
+            <div className="bg-neo-white border-4 border-neo-black p-3">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-sm font-black uppercase">Ma Stack ({selectedUsages.length} usages | {totalCost} AI₿)</h3>
+                <button
+                  onClick={() => setShowConfirmModal(true)}
+                  disabled={selectedUsages.length === 0}
+                  className="btn-neo bg-neo-green text-neo-black px-4 py-1 text-sm"
+                >
+                  ✓ Valider
+                </button>
+              </div>
+              <div className="flex flex-wrap gap-2 max-h-24 overflow-y-auto">
+                {selectedUsages.map(usage => (
+                  <div
+                    key={usage.id}
+                    className={`${getCategoryColor(usage.category)} px-2 py-1 text-xs font-bold flex items-center gap-2`}
+                  >
+                    <span className="truncate max-w-[150px]">
+                      {usage.description.substring(0, 30)}
+                      {usage.description.length > 30 ? '...' : ''}
+                    </span>
+                    <span className="font-black">{usage.price}₿</span>
+                    <button
+                      onClick={() => removeUsage(usage)}
+                      className="hover:text-red-600 font-black"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
-
-      {/* Bannière de la stack sélectionnée */}
-      <StackBanner
-        selectedUsages={selectedUsages}
-        onRemove={toggleUsage}
-        onValidate={validateStack}
-      />
 
       {/* Liste des usages par catégorie */}
       <div className="container-neo mt-8">
@@ -231,6 +262,15 @@ const Workspace = () => {
           )}
         </section>
       </div>
+
+      {/* Modal de confirmation */}
+      <ConfirmModal
+        isOpen={showConfirmModal}
+        title="Valider votre stack ?"
+        message={`Vous êtes sur le point de valider votre stack avec ${selectedUsages.length} usage(s) pour un total de ${totalCost} AIBitcoins. Cette action est définitive !`}
+        onConfirm={validateStack}
+        onClose={() => setShowConfirmModal(false)}
+      />
     </div>
   );
 };

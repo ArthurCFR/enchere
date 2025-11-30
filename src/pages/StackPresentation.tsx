@@ -212,30 +212,26 @@ const StackPresentation = () => {
         )}
       </div>
 
-      {/* Navigation */}
-      <div className="fixed bottom-8 left-0 right-0">
-        <div className="max-w-7xl mx-auto flex justify-between items-center px-8">
-          <button
-            onClick={goPrevious}
-            disabled={currentStackIndex === 0}
-            className={`btn-neo-secondary text-xl ${
-              currentStackIndex === 0 ? 'opacity-30 cursor-not-allowed' : ''
-            }`}
-          >
-            ← Précédent
-          </button>
+      {/* Navigation - Boutons fixes sur les côtés */}
+      <button
+        onClick={goPrevious}
+        disabled={currentStackIndex === 0}
+        className={`fixed left-4 top-1/2 -translate-y-1/2 btn-neo-secondary text-xl z-50 ${
+          currentStackIndex === 0 ? 'opacity-30 cursor-not-allowed' : ''
+        }`}
+      >
+        ←
+      </button>
 
-          <button
-            onClick={goNext}
-            disabled={currentStackIndex === stacks.length - 1}
-            className={`btn-neo-secondary text-xl ${
-              currentStackIndex === stacks.length - 1 ? 'opacity-30 cursor-not-allowed' : ''
-            }`}
-          >
-            Suivant →
-          </button>
-        </div>
-      </div>
+      <button
+        onClick={goNext}
+        disabled={currentStackIndex === stacks.length - 1}
+        className={`fixed right-4 top-1/2 -translate-y-1/2 btn-neo-secondary text-xl z-50 ${
+          currentStackIndex === stacks.length - 1 ? 'opacity-30 cursor-not-allowed' : ''
+        }`}
+      >
+        →
+      </button>
     </div>
   );
 };
