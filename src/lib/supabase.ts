@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 
 // Fallback to hardcoded values if env vars are not available
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://chsdotsfjibiublstyaui.supabase.co';
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://chsdotsfjbiublstyaui.supabase.co';
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNoc2RvdHNmamJpdWJsc3R5YXVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ1Mjk4NjYsImV4cCI6MjA4MDEwNTg2Nn0.GtaXZ2weDvKMlFSDTVDo-VunspGmSDjkcUwny8y4rSc';
 
 console.log('🔧 Supabase Config:');
