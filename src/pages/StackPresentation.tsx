@@ -157,6 +157,7 @@ const StackPresentation = () => {
                   canAfford={true}
                   onToggle={() => {}}
                   onClick={() => setSelectedUsageDetail(usage)}
+                  presentationMode={true}
                 />
               ))}
             </div>
@@ -178,6 +179,7 @@ const StackPresentation = () => {
                   canAfford={true}
                   onToggle={() => {}}
                   onClick={() => setSelectedUsageDetail(usage)}
+                  presentationMode={true}
                 />
               ))}
             </div>
@@ -199,6 +201,7 @@ const StackPresentation = () => {
                   canAfford={true}
                   onToggle={() => {}}
                   onClick={() => setSelectedUsageDetail(usage)}
+                  presentationMode={true}
                 />
               ))}
             </div>
