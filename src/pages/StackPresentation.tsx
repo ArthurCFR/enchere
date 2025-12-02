@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase, type Usage, getCategoryColor, getGroupName } from '../lib/supabase';
+import { supabase, type Usage, getGroupName } from '../lib/supabase';
+import UsageCard from '../components/UsageCard';
+import UsageDetailModal from '../components/UsageDetailModal';
 
 interface StackData {
   group_number: 1 | 2 | 3;
@@ -13,6 +15,7 @@ const StackPresentation = () => {
   const [stacks, setStacks] = useState<StackData[]>([]);
   const [currentStackIndex, setCurrentStackIndex] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [selectedUsageDetail, setSelectedUsageDetail] = useState<Usage | null>(null);
 
   useEffect(() => {
     fetchStacks();
@@ -79,20 +82,20 @@ const StackPresentation = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-neo-black flex items-center justify-center">
-        <div className="text-3xl font-black uppercase text-neo-yellow">Chargement...</div>
+      <div className="min-h-screen bg-neo-yellow flex items-center justify-center">
+        <div className="text-3xl font-black uppercase text-neo-black">Chargement...</div>
       </div>
     );
   }
 
   if (stacks.length === 0) {
     return (
-      <div className="min-h-screen bg-neo-black flex items-center justify-center p-4">
+      <div className="min-h-screen bg-neo-yellow flex items-center justify-center p-4">
         <div className="text-center">
-          <h1 className="text-4xl font-black uppercase text-neo-yellow mb-8">
+          <h1 className="text-4xl font-black uppercase text-neo-black mb-8">
             Aucune stack validée
           </h1>
-          <p className="text-xl font-bold text-neo-white mb-8">
+          <p className="text-xl font-bold text-neo-black mb-8">
             Les groupes doivent d'abord valider leurs stacks
           </p>
           <button
@@ -109,7 +112,7 @@ const StackPresentation = () => {
   const categorized = categorizeUsages(currentStack.usages);
 
   return (
-    <div className="min-h-screen bg-neo-black text-neo-white p-8">
+    <div className="min-h-screen bg-neo-yellow text-neo-black p-8">
       {/* Header */}
       <div className="max-w-7xl mx-auto mb-8">
         <div className="flex justify-between items-center">
@@ -127,7 +130,7 @@ const StackPresentation = () => {
 
       {/* Titre de la stack */}
       <div className="text-center mb-12">
-        <h1 className="text-5xl md:text-7xl font-black uppercase mb-4 text-neo-yellow border-b-8 border-neo-yellow inline-block pb-4 px-8">
+        <h1 className="text-5xl md:text-7xl font-black uppercase mb-4 text-neo-black border-b-8 border-neo-black inline-block pb-4 px-8">
           Stack IA pour les {getGroupName(currentStack.group_number)}
         </h1>
         <div className="text-3xl font-black mt-8">
@@ -145,19 +148,16 @@ const StackPresentation = () => {
             <h2 className="text-4xl font-black uppercase mb-6 text-neo-green">
               ⚡ Quick Wins
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {categorized['quick-win'].map(usage => (
-                <div
+                <UsageCard
                   key={usage.id}
-                  className={`${getCategoryColor(usage.category)} p-6 relative`}
-                >
-                  <div className="absolute -top-3 -right-3 bg-neo-black text-neo-yellow px-4 py-2 border-4 border-neo-yellow font-black text-xl">
-                    {usage.price} AI₿
-                  </div>
-                  <p className="font-bold text-xl leading-tight pr-12">
-                    {usage.description}
-                  </p>
-                </div>
+                  usage={usage}
+                  isSelected={true}
+                  canAfford={true}
+                  onToggle={() => {}}
+                  onClick={() => setSelectedUsageDetail(usage)}
+                />
               ))}
             </div>
           </section>
@@ -169,19 +169,16 @@ const StackPresentation = () => {
             <h2 className="text-4xl font-black uppercase mb-6 text-neo-blue">
               🏗️ Structurants
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {categorized['structurant'].map(usage => (
-                <div
+                <UsageCard
                   key={usage.id}
-                  className={`${getCategoryColor(usage.category)} p-6 relative`}
-                >
-                  <div className="absolute -top-3 -right-3 bg-neo-black text-neo-blue px-4 py-2 border-4 border-neo-blue font-black text-xl">
-                    {usage.price} AI₿
-                  </div>
-                  <p className="font-bold text-xl leading-tight pr-12">
-                    {usage.description}
-                  </p>
-                </div>
+                  usage={usage}
+                  isSelected={true}
+                  canAfford={true}
+                  onToggle={() => {}}
+                  onClick={() => setSelectedUsageDetail(usage)}
+                />
               ))}
             </div>
           </section>
@@ -193,19 +190,16 @@ const StackPresentation = () => {
             <h2 className="text-4xl font-black uppercase mb-6 text-neo-pink">
               🚀 Moonshots
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {categorized['moonshot'].map(usage => (
-                <div
+                <UsageCard
                   key={usage.id}
-                  className={`${getCategoryColor(usage.category)} p-6 relative`}
-                >
-                  <div className="absolute -top-3 -right-3 bg-neo-black text-neo-pink px-4 py-2 border-4 border-neo-pink font-black text-xl">
-                    {usage.price} AI₿
-                  </div>
-                  <p className="font-bold text-xl leading-tight pr-12">
-                    {usage.description}
-                  </p>
-                </div>
+                  usage={usage}
+                  isSelected={true}
+                  canAfford={true}
+                  onToggle={() => {}}
+                  onClick={() => setSelectedUsageDetail(usage)}
+                />
               ))}
             </div>
           </section>
@@ -232,6 +226,13 @@ const StackPresentation = () => {
       >
         →
       </button>
+
+      {/* Modal de détail d'usage */}
+      <UsageDetailModal
+        usage={selectedUsageDetail}
+        isOpen={!!selectedUsageDetail}
+        onClose={() => setSelectedUsageDetail(null)}
+      />
     </div>
   );
 };

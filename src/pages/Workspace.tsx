@@ -13,7 +13,7 @@ const Workspace = () => {
 
   const [usages, setUsages] = useState<Usage[]>([]);
   const [selectedUsageIds, setSelectedUsageIds] = useState<string[]>([]);
-  const [budget, setBudget] = useState(200);
+  const [budget, setBudget] = useState(150);
   const [loading, setLoading] = useState(true);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [selectedUsageDetail, setSelectedUsageDetail] = useState<Usage | null>(null);
@@ -56,7 +56,7 @@ const Workspace = () => {
 
       if (data) {
         setSelectedUsageIds(data.usage_ids || []);
-        setBudget(200 - data.total_spent);
+        setBudget(150 - data.total_spent);
       }
     } catch (error) {
       console.error('Erreur lors du chargement de la stack:', error);
@@ -73,7 +73,7 @@ const Workspace = () => {
       setSelectedUsageIds(newSelectedIds);
       setBudget(newBudget);
 
-      await updateStack(newSelectedIds, 200 - newBudget);
+      await updateStack(newSelectedIds, 150 - newBudget);
     } else {
       if (budget >= usage.price) {
         const newSelectedIds = [...selectedUsageIds, usage.id!];
@@ -82,7 +82,7 @@ const Workspace = () => {
         setSelectedUsageIds(newSelectedIds);
         setBudget(newBudget);
 
-        await updateStack(newSelectedIds, 200 - newBudget);
+        await updateStack(newSelectedIds, 150 - newBudget);
       }
     }
   };
